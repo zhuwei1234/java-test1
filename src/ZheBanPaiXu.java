@@ -12,7 +12,7 @@ public class ZheBanPaiXu {
         int end_one = are.length - 1;
         while (fire_one <= end_one) {
             int middle;
-            middle = (fire_one + end_one) / 2;
+            middle = (fire_one + end_one) / 2;//把起始位置  和   终止位置   相加   后折半
             if (des == are[middle]) {
                 return des;
             }
