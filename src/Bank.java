@@ -2,13 +2,22 @@
     private  static Bank_Account account;
     private String bank_account; // 银行账户
     private String name;   //户名
-    private double balance;   //余额
+    public  double balance;   //余额
     public static Bank_Account getBankAccount(){
          if (account == null){
              account= new Bank_Account();
          }
          return account;
      }
+     public Bank_Account(){
+        name=null;
+        bank_account=null;
+
+     }
+     //   构造函数  传参  余额  balance
+     public Bank_Account(double balance){
+        this.balance=balance;
+    }
      //存款
     public  void  add_deposit(double balance){
         this.balance=this.balance+balance;
@@ -99,6 +108,45 @@ class Customer {
     }
 
 }
+// 利息账户类
+class SavingAccount extends Bank_Account {
+    private double interestrate;
+    public SavingAccount(double balance,double interestrate){
+        super(balance);
+        this.interestrate=interestrate;
+    }
+    public double  get_interestrate(){
+        return interestrate;
+    }
+    public void set_interestrate( double interestrate){
+        this.interestrate=interestrate;
+    }
+
+
+}
+//    透支类实现透支账户的检查
+class CheckAccount extends Bank_Account {
+    private double  overdraf ;
+    public  CheckAccount(double balance,double overdraf){
+        super.balance =balance;
+        this.overdraf=overdraf;
+    }
+
+    @Override
+    public void subtract_deposit(double balance) {
+        super.subtract_deposit(balance);
+
+    }
+    public void setOverdraf(double overdraf){
+        this.overdraf=overdraf;
+    }
+    public double getOverdraf(){
+        return overdraf;
+    }
+}
+
+
+
 
 
 public class Bank {
