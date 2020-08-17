@@ -1,9 +1,9 @@
  class Bank_Account {
-    private Bank_Account account;
+    private  static Bank_Account account;
     private String bank_account; // 银行账户
     private String name;   //户名
     private double balance;   //余额
-    public Bank_Account getBankAccount(){
+    public static Bank_Account getBankAccount(){
          if (account == null){
              account= new Bank_Account();
          }
@@ -44,11 +44,11 @@ class Customer {
     private static Customer customer;
     //   获取银行账户
     public Bank_Account getBank_account(){
-        return bank_account;
+        return bank_account=new Bank_Account();
     }
 
     // 实现 重构  构造函数 添加客户信息
-    private Customer( String name,String id_number){
+    public  Customer( String name,String id_number){
         this.name =name;
         this.id_number=id_number;
     }
@@ -58,12 +58,14 @@ class Customer {
         id_number=null;
     }
     //    获取带姓名和 证件号的客户实例对象
-    public Customer get_Customer2( String name,String id_number){
+/*    public Customer get_Customer2( String name,String id_number){
         if (customer == null){
             customer=new Customer(name,id_number);
         }
         return customer;
     }
+
+ */
     //   获取为空的客户类实例对象
     public Customer get_Customer1(){
         if (customer ==  null){
@@ -100,7 +102,7 @@ class Customer {
 
 
 public class Bank {
-    private Customer[] customer=new Customer[3] ; //    这块需要重点关注 数组的写法  定义一个银行包含多个客户
+    private  Customer[] customer=new Customer[3]; //    这块需要重点关注 数组的写法  定义一个银行包含多个客户
     Bank_Account [] account= new Bank_Account[3];
     private String bank_name;
     private Bank bank;
@@ -133,14 +135,14 @@ public class Bank {
     bank1.setBankName("中信银行");
     //bank1.bank_name="中信银行";
 
-        bank1.customer[0] = bank1.customer[0].get_Customer2("张三","11111111");
-        bank1.customer[1] = bank1.customer[1].get_Customer2("李四","22222222");
-        bank1.customer[2] = bank1.customer[2].get_Customer2("王五","33333333");
+     bank1.customer[0] = new Customer("张三", "11111111");
+     bank1.customer[1] = new Customer("李四", "22222222");
+     bank1.customer[2] = new Customer("王五", "22222222");
 
-    Bank_Account account1 = bank1.customer[0].getBank_account();
-    Bank_Account account2 = bank1.customer[1].getBank_account();
-    Bank_Account account3 = bank1.customer[2].getBank_account();
-
+    bank1.account[0]= bank1.customer[0].getBank_account();
+    bank1.account[1] = bank1.customer[1].getBank_account();
+    bank1.account[2] = bank1.customer[2].getBank_account();
+    bank1.account[0].add_deposit(1000);
     bank1.account[0].add_deposit(100.00);
     bank1.account[1].add_deposit(200.00);
     bank1.account[2].add_deposit(300.00);
@@ -150,19 +152,7 @@ public class Bank {
         System.out.print("  证件号："+ bank1.customer[0].getId_number());
         System.out.println("   余额"+bank1.account[i].get_account_balance());
     }
-/*
-    Customer zhangsan=new Customer("张三","210423423423423");
 
-    Bank_Account zhang_shan= new Bank_Account();
-    Bank_Account li_si=new Bank_Account();
-    zhang_shan.add_deposit(500.01);
-    zhang_shan.subtract_deposit(58.3);
-    li_si.add_deposit(1500.32);
-    li_si.subtract_deposit(300.21);
-
-    System.out.println("张三："+zhang_shan.get_account_balance());
-    System.out.println("李四："+li_si.get_account_balance());
-*/
     }
 
 }
